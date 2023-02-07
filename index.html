@@ -1,0 +1,177 @@
+<html>
+
+<head>
+	<title>web-Image-Viewer</title>
+	<link href="logoFD.PNG" rel="icon">
+	<link href="logoFD.PNG" rel="apple-touch-icon">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		.row {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			padding: 0 4px;
+		}
+
+		/* Create four equal columns that sits next to each other */
+		.column {
+			-ms-flex: 25%;
+			/* IE10 */
+			flex: 25%;
+			max-width: 24.8%;
+			padding: 0 4px;
+		}
+
+		.column img {
+			margin-top: 4px;
+			vertical-align: middle;
+			width: 100%;
+		}
+
+		.header_main {
+			margin: 20px 10px 20px 13px;
+			width: 98%;
+			background-color: #F5F5F5;
+			padding: 20px;
+			text-align: center;
+			border-radius: 60px 60px 15px 15px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		}
+
+		.header_main h1 {
+			font-style: normal !important;
+			background-image: linear-gradient(90deg, #7209d4, #2832d4 33%, #00a5b2);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			font-size: 36px;
+			font-weight: bold;
+			margin-bottom: 20px;
+			margin-top: -10px;
+		}
+
+		.header_main h2 {
+			font-size: 24px;
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		.section_menu {
+			margin-top: 20px;
+			display: inline-block;
+			text-align: start;
+		}
+
+		.section_menu input[type="checkbox"] {
+			width: 20px;
+			height: 20px;
+			margin-right: 10px;
+		}
+
+		.section_menu label {
+			font-size: 18px;
+			color: #333;
+		}
+
+		.section_menu input[type="checkbox"]:checked+label {
+			color: #4CAF50;
+			font-weight: bold;
+		}
+
+
+		/* Responsive layout - makes a two column-layout instead of four columns */
+		@media screen and (max-width: 800px) {
+			.column {
+				-ms-flex: 50%;
+				flex: 50%;
+				max-width: 50%;
+			}
+		}
+
+		/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+		@media screen and (max-width: 600px) {
+			.column {
+				-ms-flex: 100%;
+				flex: 100%;
+				max-width: 100%;
+			}
+		}
+	</style>
+	<script type="text/javascript">
+		//http://stackoverflow.com/questions/805107/creating-multiline-strings-in-javascript
+		function mlString(f) {
+			return f.toString().
+				replace(/^[^\/]+\/\*!?/, '').
+				replace(/\*\/[^\/]+$/, '');
+		}
+
+		var columnas = ["column0", "column1", "column2", "column3"];
+		var indiceColumnaActual = 0;
+
+		function run_onload() {
+			var filenames = g_FOLDER_CONTENTS.match(/\S+/g);
+			var fragment = document.createDocumentFragment();
+
+			for (var i = 0; i < filenames.length; ++i) {
+				task(i);
+			}
+
+			function task(i) {
+				setTimeout(function () {
+					console.log(filenames[i]);
+					var image = document.createElement("img");
+					image.src = "album/" + filenames[i];
+					image.style.borderRadius = '10px';
+					image.style.width = '100%';
+					image.style.margin = '4px 4px';
+					fragment.appendChild(image);
+					console.log(columnas[indiceColumnaActual]);
+					document.getElementById(columnas[indiceColumnaActual]).appendChild(fragment);
+					indiceColumnaActual++;
+					if (indiceColumnaActual == 4) {
+						indiceColumnaActual = 0;
+					}
+				}, 0 * i)
+			}
+		}
+
+	</script>
+	<script type="text/javascript" src="folder_contents.js"></script>
+
+</head>
+
+<body onload="run_onload()">
+
+	<header class="header_main">
+
+		<h1>! web-Image-Viewer !</h1>
+
+			<section class="section_menu">
+				<input type="checkbox" id="rounded_corners" name="rounded_corners" value="active">
+				<label for="rounded_corners">Rounded corners</label><br>
+				<input type="checkbox" id="color_background" name="color_background" value="active">
+				<label for="color_background">White background</label><br>
+			</section>
+	</header>
+
+	<div class="row">
+		<div class="column" id="column0">
+
+		</div>
+		<div class="column" id="column1">
+
+		</div>
+		<div class="column" id="column2">
+
+		</div>
+		<div class="column" id="column3">
+
+		</div>
+	</div>
+</body>
+
+</html>

@@ -4,17 +4,23 @@
 	<title>web-Image-Viewer</title>
 	<link href="logo.png" rel="icon">
 	<link href="logo.png" rel="apple-touch-icon">
+
 	<style>
+		html {
+			
+		}
+
 		* {
 			box-sizing: border-box;
+			margin: 0;
 		}
 
 		.row {
 			display: -ms-flexbox;
 			display: flex;
 			-ms-flex-wrap: wrap;
+			padding: 0px 5px;
 			flex-wrap: wrap;
-			padding: 0 4px;
 		}
 
 		/* Create four equal columns that sits next to each other */
@@ -22,12 +28,9 @@
 			-ms-flex: 25%;
 			/* IE10 */
 			flex: 25%;
-			max-width: 24.8%;
-			padding: 0 4px;
 		}
 
 		.column img {
-			margin-top: 4px;
 			vertical-align: middle;
 			width: 100%;
 		}
@@ -127,6 +130,24 @@
 			}
 		}
 
+		function paddingImages() {
+			let images = document.getElementsByTagName("img");
+			//let rows = document.getElementById
+			if (document.getElementById("padding_images").checked) {
+				for (image of images) {
+					image.style.padding = '5px 5px';
+					document.querySelector(".row").style.padding = '0px 5px';
+				}
+			} else {
+				for (image of images){
+					image.style.padding = '0px';
+					document.getElementById("rounded_corners").checked = false;
+					roundedCorners();
+					document.querySelector(".row").style.padding = '0px 0px';
+				}
+			}
+		}
+
 		// http://stackoverflow.com/questions/805107/creating-multiline-strings-in-javascript
 		function mlString(f) {
 			return f.toString().
@@ -151,8 +172,8 @@
 					var image = document.createElement("img");
 					image.src = "album/" + filenames[i];
 					image.style.borderRadius = '10px';
-					image.style.width = '100%';
-					image.style.margin = '4px 4px';
+					//image.style.width = '100%';
+					image.style.padding = '5px 5px';
 					fragment.appendChild(image);
 					console.log(columns[indexColumn]);
 					document.getElementById(columns[indexColumn]).appendChild(fragment);
@@ -179,9 +200,14 @@
 			<input type="checkbox" onchange="roundedCorners()" id="rounded_corners" name="rounded_corners"
 				value="corners" checked>
 			<label for="rounded_corners">Rounded corners</label><br>
+
 			<input type="checkbox" onchange="changeBackgroundColor()" id="dark_background" name="dark_background"
 				value="background">
 			<label for="dark_background">Dark background</label><br>
+
+			<input type="checkbox" onchange="paddingImages()" id="padding_images" name="padding_images"
+			value="padding" checked>
+			<label for="padding_images">Image padding</label><br>
 		</section>
 	</header>
 

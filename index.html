@@ -101,18 +101,43 @@
 			}
 		}
 	</style>
+
 	<script type="text/javascript">
-		//http://stackoverflow.com/questions/805107/creating-multiline-strings-in-javascript
+
+		function changeBackgroundColor() {
+			if (document.getElementById("dark_background").checked) {
+				document.querySelector("body").style.backgroundColor = '#404040';
+				document.querySelector(".header_main").style.backgroundColor = '#b3b3b3';
+			} else {
+				document.querySelector("body").style.backgroundColor = 'white';
+				document.querySelector(".header_main").style.backgroundColor = '#F5F5F5';
+			}
+		}
+
+		function roundedCorners() {
+			let images = document.getElementsByTagName("img");
+			if (document.getElementById("rounded_corners").checked) {
+				for (image of images) {
+					image.style.borderRadius = '10px';
+				}
+			} else {
+				for (image of images){
+					image.style.borderRadius = '0px';
+				}
+			}
+		}
+
+		// http://stackoverflow.com/questions/805107/creating-multiline-strings-in-javascript
 		function mlString(f) {
 			return f.toString().
 				replace(/^[^\/]+\/\*!?/, '').
 				replace(/\*\/[^\/]+$/, '');
 		}
 
-		var columnas = ["column0", "column1", "column2", "column3"];
-		var indiceColumnaActual = 0;
+		var columns = ["column0", "column1", "column2", "column3"];
+		var indexColumn = 0;
 
-		function run_onload() {
+		function main() {
 			var filenames = g_FOLDER_CONTENTS.match(/\S+/g);
 			var fragment = document.createDocumentFragment();
 
@@ -129,11 +154,11 @@
 					image.style.width = '100%';
 					image.style.margin = '4px 4px';
 					fragment.appendChild(image);
-					console.log(columnas[indiceColumnaActual]);
-					document.getElementById(columnas[indiceColumnaActual]).appendChild(fragment);
-					indiceColumnaActual++;
-					if (indiceColumnaActual == 4) {
-						indiceColumnaActual = 0;
+					console.log(columns[indexColumn]);
+					document.getElementById(columns[indexColumn]).appendChild(fragment);
+					indexColumn++;
+					if (indexColumn == 4) {
+						indexColumn = 0;
 					}
 				}, 0 * i)
 			}
@@ -144,19 +169,22 @@
 
 </head>
 
-<body onload="run_onload()">
+<body onload="main()">
 
 	<header class="header_main">
 
 		<h1>A simple an responsive web image album viewer</h1>
 
-			<section class="section_menu">
-				<input type="checkbox" id="rounded_corners" name="rounded_corners" value="active">
-				<label for="rounded_corners">Rounded corners</label><br>
-				<input type="checkbox" id="color_background" name="color_background" value="active">
-				<label for="color_background">White background</label><br>
-			</section>
+		<section class="section_menu">
+			<input type="checkbox" onchange="roundedCorners()" id="rounded_corners" name="rounded_corners"
+				value="corners" checked>
+			<label for="rounded_corners">Rounded corners</label><br>
+			<input type="checkbox" onchange="changeBackgroundColor()" id="dark_background" name="dark_background"
+				value="background">
+			<label for="dark_background">Dark background</label><br>
+		</section>
 	</header>
+
 
 	<div class="row">
 		<div class="column" id="column0">

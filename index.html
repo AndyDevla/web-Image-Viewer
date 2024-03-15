@@ -1,14 +1,14 @@
+<!doctype html>
 <html>
 
 <head>
 	<title>web-Image-Viewer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="logo.png" rel="icon">
 	<link href="logo.png" rel="apple-touch-icon">
 
 	<style>
-		html {
-			
-		}
 
 		* {
 			box-sizing: border-box;
@@ -132,7 +132,6 @@
 
 		function paddingImages() {
 			let images = document.getElementsByTagName("img");
-			//let rows = document.getElementById
 			if (document.getElementById("padding_images").checked) {
 				for (image of images) {
 					image.style.padding = '5px 5px';
@@ -194,7 +193,7 @@
 
 	<header class="header_main">
 
-		<h1>A simple an responsive web image album viewer</h1>
+		<h1>A simple & responsive web image album viewer</h1>
 
 		<section class="section_menu">
 			<input type="checkbox" onchange="roundedCorners()" id="rounded_corners" name="rounded_corners"
@@ -210,7 +209,6 @@
 			<label for="padding_images">Image padding</label><br>
 		</section>
 	</header>
-
 
 	<div class="row">
 		<div class="column" id="column0">
